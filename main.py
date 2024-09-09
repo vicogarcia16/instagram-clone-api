@@ -21,6 +21,7 @@ app.include_router(comment.router)
 
 origins = [
     "http://localhost:3000",
+    "https://instagram-clone-cnc22h9a6-victor-garcias-projects-6ffd7da5.vercel.app/",
     "http://localhost:3001",
     "http://localhost:3002",
     "http://localhost:3003"    
