@@ -13,6 +13,7 @@ python-multipart = "*"
 aiofiles = "*"
 python-jose = "*"
 python-dotenv = "*"
+gunicorn = "*"
 
 [dev-packages]
 
