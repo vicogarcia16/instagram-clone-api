@@ -1,0 +1,23 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+fastapi = "*"
+uvicorn = "*"
+sqlalchemy = "*"
+passlib = "*"
+argon2-cffi = "*"
+python-multipart = "*"
+aiofiles = "*"
+python-jose = "*"
+python-dotenv = "*"
+
+[dev-packages]
+
+[scripts]
+server = "uvicorn main:app --reload"
+
+[requires]
+python_version = "3.11"
