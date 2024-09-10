@@ -5,6 +5,10 @@ from routers import user, post, comment
 from auth import authentication
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
+import os
+if not os.getenv('PRODUCTION'):
+  from dotenv import load_dotenv
+  load_dotenv() 
 
 app = FastAPI(
     title="Instagram Clone API",
@@ -19,13 +23,7 @@ app.include_router(user.router)
 app.include_router(post.router)
 app.include_router(comment.router)
 
-origins = [
-    "http://localhost:3000",
-    "https://instagram-clone-sigma-six.vercel.app",
-    "http://localhost:3001",
-    "http://localhost:3002",
-    "http://localhost:3003"    
-]
+origins = os.getenv("ORIGINS", "").split(",")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
