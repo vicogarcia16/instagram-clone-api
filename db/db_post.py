@@ -1,6 +1,6 @@
 from schemas.schemas import PostBase
 from sqlalchemy.orm.session import Session
-from db.models import DbPost
+from db.models import DbPost, DbComment
 from datetime import datetime
 from fastapi import HTTPException, status
 from tools.bucket import supabase, SUPABASE_BUCKET_NAME, SUPABASE_URL
@@ -40,6 +40,11 @@ def delete(db: Session, id: int, user_id: int):
         except Exception as e:
             raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                                 detail=str(e))
+            
+    comments = db.query(DbComment).filter(DbComment.post_id == id).all()
+    for comment in comments:
+        db.delete(comment)
+        
     db.delete(post)
     db.commit()
     return 'Deleted'
