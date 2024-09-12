@@ -10,11 +10,11 @@ sqlalchemy = "*"
 passlib = "*"
 argon2-cffi = "*"
 python-multipart = "*"
-aiofiles = "*"
 python-jose = "*"
 python-dotenv = "*"
 gunicorn = "*"
 psycopg2 = "*"
+supabase = "*"
 
 [dev-packages]
 
