@@ -3,7 +3,7 @@ from sqlalchemy.orm.session import Session
 from db.models import DbPost
 from datetime import datetime
 from fastapi import HTTPException, status
-import os
+from tools.bucket import supabase, SUPABASE_BUCKET_NAME, SUPABASE_URL
 
 def create(db: Session, request: PostBase):
     new_post = DbPost(
@@ -31,8 +31,15 @@ def delete(db: Session, id: int, user_id: int):
                             detail="Only post creator can delete the post")
     image = post.image_url
     if image:
-        if os.path.exists(image):
-            os.remove(image)
+        image_filename = image.split('/')[-1]
+        try:
+            response = supabase.storage.from_(SUPABASE_BUCKET_NAME).remove([image_filename])
+            if hasattr(response, 'error') and response.error:
+                raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
+                                detail=f"Supabase error: {response.error}")
+        except Exception as e:
+            raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                                detail=str(e))
     db.delete(post)
     db.commit()
     return 'Deleted'
