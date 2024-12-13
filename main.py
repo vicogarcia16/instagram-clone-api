@@ -3,7 +3,6 @@ from db import models
 from db.database import engine
 from routers import user, post, comment
 from auth import authentication
-from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 import os
 if not os.getenv('PRODUCTION'):
