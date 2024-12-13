@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import os
 if not os.getenv('PRODUCTION'):
   from dotenv import load_dotenv
-  load_dotenv() 
+  load_dotenv()
 
 app = FastAPI(
     title="Instagram Clone API",
@@ -23,6 +23,10 @@ app.include_router(user.router)
 app.include_router(post.router)
 app.include_router(comment.router)
 
+if os.getenv('PRODUCTION'):
+  from starlette.middleware.httpsredirect import HTTPSRedirectMiddleware
+  app.add_middleware(HTTPSRedirectMiddleware)
+  
 origins = os.getenv("ORIGINS", "").split(",")
 app.add_middleware(
     CORSMiddleware,
