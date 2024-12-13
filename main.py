@@ -33,9 +33,5 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-if os.getenv('PRODUCTION'):
-  from starlette.middleware.httpsredirect import HTTPSRedirectMiddleware
-  app.add_middleware(HTTPSRedirectMiddleware)
   
 models.Base.metadata.create_all(engine)
