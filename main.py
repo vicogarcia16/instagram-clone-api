@@ -23,10 +23,6 @@ app.include_router(user.router)
 app.include_router(post.router)
 app.include_router(comment.router)
 
-if os.getenv('PRODUCTION'):
-  from starlette.middleware.httpsredirect import HTTPSRedirectMiddleware
-  app.add_middleware(HTTPSRedirectMiddleware)
-  
 origins = os.getenv("ORIGINS", "").split(",")
 app.add_middleware(
     CORSMiddleware,
@@ -36,4 +32,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+if os.getenv('PRODUCTION'):
+  from starlette.middleware.httpsredirect import HTTPSRedirectMiddleware
+  app.add_middleware(HTTPSRedirectMiddleware)
+  
 models.Base.metadata.create_all(engine)
