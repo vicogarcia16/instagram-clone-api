@@ -4,6 +4,7 @@ from db.database import engine
 from routers import user, post, comment
 from auth import authentication
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.httpsredirect import HTTPSRedirectMiddleware
 import os
 if not os.getenv('PRODUCTION'):
   from dotenv import load_dotenv
@@ -16,7 +17,8 @@ app = FastAPI(
     docs_url="/",
     redoc_url="/redoc"
 )
-
+if os.getenv('PRODUCTION'):
+  app.add_middleware(HTTPSRedirectMiddleware)
 app.include_router(authentication.router)
 app.include_router(user.router)
 app.include_router(post.router)
@@ -30,5 +32,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-  
+
+
 models.Base.metadata.create_all(engine)
