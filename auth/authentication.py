@@ -7,10 +7,11 @@ from tools.hashing import Hash
 from auth.oauth2 import create_access_token
 
 router = APIRouter(
-    tags=['authentication']
+    tags=['authentication'],
+    prefix="/login"
 )
 
-@router.post('/login/')
+@router.post('/')
 def login(request: OAuth2PasswordRequestForm = Depends(), 
           db: Session = Depends(get_db)):
     user = db.query(DbUser).filter(DbUser.username == request.username).first()

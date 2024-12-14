@@ -14,9 +14,7 @@ app = FastAPI(
     description="This is a REST API for an Instagram Clone",
     version="0.1.1",
     docs_url="/",
-    redoc_url="/redoc",
-    servers=[{"url": os.getenv("SERVER_URL", "http://localhost:8000")}],
-    
+    redoc_url="/redoc"
 )
 
 app.include_router(authentication.router)
