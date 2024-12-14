@@ -17,10 +17,6 @@ app = FastAPI(
     redoc_url="/redoc"
 )
 
-if os.getenv('PRODUCTION'):
-  from starlette.middleware.httpsredirect import HTTPSRedirectMiddleware
-  app.add_middleware(HTTPSRedirectMiddleware,  allowed_hosts=["web-production-3edc.up.railway.app"])
-
 app.include_router(authentication.router)
 app.include_router(user.router)
 app.include_router(post.router)
