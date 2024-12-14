@@ -13,7 +13,6 @@ python-multipart = "*"
 python-jose = "*"
 python-dotenv = "*"
 gunicorn = "*"
-psycopg2 = "*"
 supabase = "*"
 
 [dev-packages]
